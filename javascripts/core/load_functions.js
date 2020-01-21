@@ -1,5 +1,5 @@
 var inflationCheck = false
-var betaId = "3.1"
+var betaId = "Higgs"
 var prefix = betaId + "ds"
 var savePrefix = prefix + "AM_"
 var presetPrefix = prefix + "AM_ST_"
@@ -831,6 +831,11 @@ if (player.version < 5) {
                       wpb: 0,
                       wnb: 0,
                       zb: 0
+                  },
+                  hb: {
+                      times: 0,
+                      amount: 0,
+                      boosts: {}
                   }
               }
               tmp.bl=player.ghostify.bl
@@ -1264,7 +1269,14 @@ if (player.version < 5) {
   }
   if (player.aarexModifications.newGame3PlusVersion < 2.21) {
       //No save modification code yet! :(
-      player.aarexModifications.newGame3PlusVersion = 2.21
+  }
+  if (player.aarexModifications.newGame3PlusVersion < 2.3) {
+      player.ghostify.hb = {
+          times: 0,
+          amount: 0,
+          boosts: {}
+      }
+      player.aarexModifications.newGame3PlusVersion = 2.3
   }
   if (player.aarexModifications.newGameMinusMinusVersion === undefined && !player.meta) {
       if (player.exdilation == undefined && player.version == 13) player.version = 12
@@ -2632,6 +2644,7 @@ function transformSaveToDecimal() {
           player.ghostify.wzb.wnb=new Decimal(player.ghostify.wzb.wnb)
           player.ghostify.wzb.zb=new Decimal(player.ghostify.wzb.zb)
       }
+      if (player.ghostify.hb) calculateTotalHiggs()
   }
 }
 
